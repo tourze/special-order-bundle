@@ -34,7 +34,7 @@
     "tourze/doctrine-snowflake-bundle": "0.1.*",
     "tourze/doctrine-timestamp-bundle": "0.0.*",
     "tourze/doctrine-user-bundle": "0.0.*",
-    "tourze/easy-admin-menu-bundle": "0.1.*",
+    "tourze/easy-admin-menu-bundle": "1.0.*",
     "tourze/json-rpc-core": "0.0.*",
     "tourze/json-rpc-paginator-bundle": "0.0.*",
     "tourze/order-cart-bundle": "0.0.*",
@@ -47,9 +47,9 @@
     "phpstan/phpstan": "^2.1",
     "phpunit/phpunit": "^11.5",
     "tourze/phpunit-doctrine-entity": "1.*",
-    "tourze/phpunit-symfony-kernel-test": "0.0.*",
+    "tourze/phpunit-symfony-kernel-test": "1.*",
     "tourze/phpunit-symfony-unit-test": "1.*",
-    "tourze/phpunit-symfony-web-test": "0.0.*",
+    "tourze/phpunit-symfony-web-test": "1.*",
     "tourze/symfony-dependency-service-loader": "1.*"
   },
   "autoload": {
