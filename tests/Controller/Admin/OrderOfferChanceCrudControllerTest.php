@@ -27,8 +27,7 @@ final class OrderOfferChanceCrudControllerTest extends AbstractEasyAdminControll
 {
     public function testIndex(): void
     {
-        $client = self::createClientWithDatabase();
-        $this->loginAsAdmin($client);
+        $client = self::createAuthenticatedClient();
 
         // 访问 OrderOfferChance 的 EasyAdmin 列表页
         $crawler = $client->request('GET', '/admin/order/offer-chance');

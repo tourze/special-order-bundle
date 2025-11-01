@@ -19,8 +19,7 @@ final class OrderOfferSkuCrudControllerTest extends AbstractEasyAdminControllerT
 {
     public function testIndex(): void
     {
-        $client = self::createClientWithDatabase();
-        $this->loginAsAdmin($client);
+        $client = self::createAuthenticatedClient();
         $client->request('GET', '/admin/order/offer-sku');
 
         // 验证响应状态码
