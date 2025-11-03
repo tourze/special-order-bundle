@@ -10,6 +10,7 @@ use OrderCoreBundle\OrderCoreBundle;
 use Symfony\Bundle\SecurityBundle\SecurityBundle;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Tourze\BundleDependency\BundleDependencyInterface;
+use Tourze\EasyAdminMenuBundle\EasyAdminMenuBundle;
 use Tourze\JsonRPCSecurityBundle\JsonRPCSecurityBundle;
 use Tourze\ProductCoreBundle\ProductCoreBundle;
 
@@ -27,6 +28,7 @@ class SpecialOrderBundle extends Bundle implements BundleDependencyInterface
             JsonRPCSecurityBundle::class => ['all' => true],
             BenefitBundle::class => ['all' => true],
             ProductCoreBundle::class => ['all' => true],
+            EasyAdminMenuBundle::class => ['all' => true],
         ];
     }
 }
