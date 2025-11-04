@@ -86,7 +86,7 @@ final class OrderOfferChanceCrudControllerTest extends AbstractEasyAdminControll
         yield 'endTime' => ['endTime'];
     }
 
-    protected function onSetUp(): void
+    protected function afterEasyAdminSetUp(): void
     {
         parent::onSetUp();
 
