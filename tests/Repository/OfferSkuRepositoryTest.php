@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Tourze\SpecialOrderBundle\Tests\Repository;
 
-use BizUserBundle\Entity\BizUser;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Tourze\UserServiceContracts\UserManagerInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
@@ -23,10 +24,12 @@ use Tourze\SpecialOrderBundle\Repository\OfferSkuRepository;
 final class OfferSkuRepositoryTest extends AbstractRepositoryTestCase
 {
     private OfferSkuRepository $repository;
+    private UserManagerInterface $userManager;
 
     protected function onSetUp(): void
     {
         $this->repository = self::getService(OfferSkuRepository::class);
+        $this->userManager = self::getService(UserManagerInterface::class);
 
         // 创建一些测试数据以确保count测试通过
         $testEntity = $this->createNewEntity();
@@ -40,12 +43,13 @@ final class OfferSkuRepositoryTest extends AbstractRepositoryTestCase
         $chance->setTitle('Test Offer Chance ' . uniqid());
         $chance->setValid(true);
 
-        // 创建一个测试用户实体
-        $testUser = new BizUser();
-        $testUser->setUsername('test_user_' . uniqid());
-        $testUser->setNickName('Test User');
-        $testUser->setPlainPassword('test_password');
-        $testUser->setValid(true);
+        // 通过UserManager创建测试用户
+        $testUser = $this->userManager->createUser(
+            userIdentifier: 'test_user_' . uniqid(),
+            nickName: 'Test User',
+            password: 'test_password',
+            roles: ['ROLE_USER']
+        );
 
         self::getEntityManager()->persist($testUser);
         self::getEntityManager()->flush();

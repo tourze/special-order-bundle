@@ -68,7 +68,6 @@ final class SpuOfferResourceProviderTest extends AbstractIntegrationTestCase
         // 验证创建了 OfferChance
         /** @var EntityManagerInterface $entityManager */
         $entityManager = self::getEntityManager();
-        /** @phpstan-ignore doctrine.noGetRepositoryOutsideService */
         $offerChances = $entityManager
             ->getRepository(OfferChance::class)
             ->findBy(['user' => $user])
@@ -83,7 +82,6 @@ final class SpuOfferResourceProviderTest extends AbstractIntegrationTestCase
         $this->assertNotNull($offerChance->getStartTime());
 
         // 验证创建了 OfferSku
-        /** @phpstan-ignore doctrine.noGetRepositoryOutsideService */
         $offerSkus = $entityManager
             ->getRepository(OfferSku::class)
             ->findBy(['chance' => $offerChance])
@@ -163,7 +161,6 @@ final class SpuOfferResourceProviderTest extends AbstractIntegrationTestCase
         // 验证过期时间设置正确
         /** @var EntityManagerInterface $entityManager */
         $entityManager = self::getEntityManager();
-        /** @phpstan-ignore doctrine.noGetRepositoryOutsideService */
         $offerChances = $entityManager
             ->getRepository(OfferChance::class)
             ->findBy(['user' => $user])
