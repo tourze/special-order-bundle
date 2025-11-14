@@ -1,6 +1,6 @@
 {
   "name": "tourze/special-order-bundle",
-  "description": "",
+  "description": "A Symfony bundle for managing special order offers and chances within e-commerce applications",
   "type": "symfony-bundle",
   "license": "MIT",
   "require": {
