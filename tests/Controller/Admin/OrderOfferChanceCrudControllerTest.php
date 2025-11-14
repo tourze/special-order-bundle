@@ -88,7 +88,7 @@ final class OrderOfferChanceCrudControllerTest extends AbstractEasyAdminControll
 
     protected function afterEasyAdminSetUp(): void
     {
-        parent::onSetUp();
+        parent::afterEasyAdminSetUp();
 
         // 如果内核已启动且有Doctrine支持，尝试创建测试数据
         // 这有助于解决 testEditPagePrefillsExistingData 中的数据问题
