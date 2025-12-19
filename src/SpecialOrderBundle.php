@@ -14,7 +14,7 @@ use Tourze\EasyAdminMenuBundle\EasyAdminMenuBundle;
 use Tourze\JsonRPCSecurityBundle\JsonRPCSecurityBundle;
 use Tourze\ProductCoreBundle\ProductCoreBundle;
 
-class SpecialOrderBundle extends Bundle implements BundleDependencyInterface
+final class SpecialOrderBundle extends Bundle implements BundleDependencyInterface
 {
     /**
      * @return array<class-string<Bundle>, array<string, bool>>

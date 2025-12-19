@@ -21,7 +21,7 @@ use Tourze\SpecialOrderBundle\Entity\OfferSku;
  * TODO 实物奖，直接创建一个免支付的订单？还是说填了地址之后再创建订单
  */
 #[Autoconfigure(public: true)]
-readonly class SpuOfferResourceProvider implements ResourceProvider
+final readonly class SpuOfferResourceProvider implements ResourceProvider
 {
     public function __construct(
         private SpuService $spuService,

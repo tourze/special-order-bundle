@@ -11,7 +11,7 @@ use Tourze\SpecialOrderBundle\Entity\OfferSku;
  * @extends ServiceEntityRepository<OfferSku>
  */
 #[AsRepository(entityClass: OfferSku::class)]
-class OfferSkuRepository extends ServiceEntityRepository
+final class OfferSkuRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

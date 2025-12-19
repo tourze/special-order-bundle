@@ -7,15 +7,15 @@ use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\Attribute\When;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Tourze\DoctrineResolveTargetEntityBundle\Service\ResolveTargetEntityService;
 use Tourze\SpecialOrderBundle\Entity\OfferChance;
+use Tourze\UserServiceContracts\UserManagerInterface;
 
 #[When(env: 'test')]
 #[When(env: 'dev')]
-class OfferChanceFixtures extends Fixture implements FixtureGroupInterface
+final class OfferChanceFixtures extends Fixture implements FixtureGroupInterface
 {
     public function __construct(
-        private readonly ResolveTargetEntityService $resolveTargetEntityService,
+        private readonly UserManagerInterface $userManager,
     ) {
     }
 
@@ -26,22 +26,12 @@ class OfferChanceFixtures extends Fixture implements FixtureGroupInterface
 
     public function load(ObjectManager $manager): void
     {
-        // 获取用户实体类
-        /** @var class-string<UserInterface> $userClass */
-        $userClass = $this->resolveTargetEntityService->findEntityClass(UserInterface::class);
-
-        // 创建测试用户
-        $testUser = new $userClass();
-        if (method_exists($testUser, 'setUsername')) {
-            $testUser->setUsername('offer_test_user');
-        }
-        if (method_exists($testUser, 'setNickName')) {
-            $testUser->setNickName('报价测试用户');
-        }
-        if (method_exists($testUser, 'setValid')) {
-            $testUser->setValid(true);
-        }
-        $manager->persist($testUser);
+        // 通过 UserManager 创建测试用户
+        $testUser = $this->userManager->createUser(
+            userIdentifier: 'offer_test_user',
+            nickName: '报价测试用户',
+        );
+        $this->userManager->saveUser($testUser);
 
         $offerChanceData = [
             [
@@ -88,7 +78,6 @@ class OfferChanceFixtures extends Fixture implements FixtureGroupInterface
             // $offerChance->setPriority($data['priority']); // Priority method not available
 
             // 设置创建用户
-            assert($testUser instanceof UserInterface);
             $offerChance->setCreatedBy($testUser->getUserIdentifier());
 
             // 设置用户关联

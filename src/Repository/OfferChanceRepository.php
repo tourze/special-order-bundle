@@ -11,7 +11,7 @@ use Tourze\SpecialOrderBundle\Entity\OfferChance;
  * @extends ServiceEntityRepository<OfferChance>
  */
 #[AsRepository(entityClass: OfferChance::class)]
-class OfferChanceRepository extends ServiceEntityRepository
+final class OfferChanceRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

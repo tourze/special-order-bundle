@@ -4,7 +4,7 @@ namespace Tourze\SpecialOrderBundle\DependencyInjection;
 
 use Tourze\SymfonyDependencyServiceLoader\AutoExtension;
 
-class SpecialOrderExtension extends AutoExtension
+final class SpecialOrderExtension extends AutoExtension
 {
     protected function getConfigDir(): string
     {

@@ -16,7 +16,7 @@ use Tourze\SpecialOrderBundle\Service\AdminMenu;
  */
 #[CoversClass(AdminMenu::class)]
 #[RunTestsInSeparateProcesses]
-class AdminMenuTest extends AbstractEasyAdminMenuTestCase
+final class AdminMenuTest extends AbstractEasyAdminMenuTestCase
 {
     protected function onSetUp(): void
     {

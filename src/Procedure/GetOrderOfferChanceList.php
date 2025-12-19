@@ -7,18 +7,21 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Tourze\JsonRPC\Core\Attribute\MethodDoc;
 use Tourze\JsonRPC\Core\Attribute\MethodExpose;
 use Tourze\JsonRPC\Core\Attribute\MethodTag;
+use Tourze\JsonRPC\Core\Contracts\RpcParamInterface;
 use Tourze\JsonRPC\Core\Domain\JsonRpcMethodInterface;
 use Tourze\JsonRPC\Core\Model\JsonRpcRequest;
 use Tourze\JsonRPC\Core\Procedure\BaseProcedure;
+use Tourze\JsonRPC\Core\Result\ArrayResult;
 use Tourze\JsonRPCPaginatorBundle\Procedure\PaginatorTrait;
 use Tourze\SpecialOrderBundle\Entity\OfferChance;
+use Tourze\SpecialOrderBundle\Param\GetOrderOfferChanceListParam;
 use Tourze\SpecialOrderBundle\Repository\OfferChanceRepository;
 
 #[MethodTag(name: '特惠机会')]
 #[MethodDoc(summary: '获取用户的特惠机会')]
 #[MethodExpose(method: 'GetOrderOfferChanceList')]
 #[IsGranted(attribute: 'IS_AUTHENTICATED_FULLY')]
-class GetOrderOfferChanceList extends BaseProcedure implements JsonRpcMethodInterface
+final class GetOrderOfferChanceList extends BaseProcedure implements JsonRpcMethodInterface
 {
     use PaginatorTrait;
 
@@ -28,7 +31,10 @@ class GetOrderOfferChanceList extends BaseProcedure implements JsonRpcMethodInte
     ) {
     }
 
-    public function execute(): array
+    /**
+     * @phpstan-param GetOrderOfferChanceListParam $param
+     */
+    public function execute(GetOrderOfferChanceListParam|RpcParamInterface $param): ArrayResult
     {
         $qb = $this->offerChanceRepository
             ->createQueryBuilder('a')
@@ -38,7 +44,7 @@ class GetOrderOfferChanceList extends BaseProcedure implements JsonRpcMethodInte
             ->setParameter('valid', true)
         ;
 
-        return $this->fetchList($qb, $this->formatItem(...));
+        return new ArrayResult($this->fetchList($qb, $this->formatItem(...), null, $param));
     }
 
     /**

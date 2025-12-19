@@ -13,7 +13,7 @@ use Tourze\SpecialOrderBundle\Entity\OfferChance;
 use Tourze\SpecialOrderBundle\Entity\OfferSku;
 
 #[When(env: 'dev')]
-class OfferSkuFixtures extends Fixture implements FixtureGroupInterface, DependentFixtureInterface
+final class OfferSkuFixtures extends Fixture implements FixtureGroupInterface, DependentFixtureInterface
 {
     public static function getGroups(): array
     {

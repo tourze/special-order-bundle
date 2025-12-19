@@ -9,7 +9,7 @@ use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Tourze\SpecialOrderBundle\Repository\OfferChanceRepository;
 use Yiisoft\Arrays\ArrayHelper;
 
-readonly class OfferChanceSubscriber
+final readonly class OfferChanceSubscriber
 {
     public function __construct(
         private OfferChanceRepository $offerChanceRepository,

@@ -7,11 +7,13 @@ services:
 
   Tourze\SpecialOrderBundle\Controller\:
     resource: '../../Controller/'
-  Tourze\SpecialOrderBundle\EventSubscriber\:
-    resource: '../../EventSubscriber/'
-  Tourze\SpecialOrderBundle\Procedure\:
-    resource: '../../Procedure/'
   Tourze\SpecialOrderBundle\Repository\:
     resource: '../../Repository/'
   Tourze\SpecialOrderBundle\Service\:
     resource: '../../Service/'
+    public: true
+  Tourze\SpecialOrderBundle\EventSubscriber\:
+    resource: '../../EventSubscriber/'
+    public: true
+  Tourze\SpecialOrderBundle\Procedure\:
+    resource: '../../Procedure/'

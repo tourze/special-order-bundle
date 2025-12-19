@@ -12,6 +12,7 @@ use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 use Tourze\PHPUnitSymfonyKernelTest\AbstractIntegrationTestCase;
 use Tourze\ProductCoreBundle\Entity\Sku;
 use Tourze\ProductCoreBundle\Entity\Spu;
+use Tourze\ResourceManageBundle\Model\ResourceIdentity;
 use Tourze\SpecialOrderBundle\Entity\OfferChance;
 use Tourze\SpecialOrderBundle\Entity\OfferSku;
 use Tourze\SpecialOrderBundle\Service\SpuOfferResourceProvider;
@@ -101,7 +102,21 @@ final class SpuOfferResourceProviderTest extends AbstractIntegrationTestCase
         $user = $this->createNormalUser('test_user_' . uniqid(), 'password');
 
         // 创建非 Spu 类型的资源身份
-        $invalidResource = new MockResourceIdentity('invalid-id', 'Invalid Resource');
+        $invalidResource = new class('invalid-id', 'Invalid Resource') implements ResourceIdentity {
+            public function __construct(private string $id, private string $label)
+            {
+            }
+
+            public function getResourceId(): string
+            {
+                return $this->id;
+            }
+
+            public function getResourceLabel(): string
+            {
+                return $this->label;
+            }
+        };
 
         // 验证抛出 UnsupportedResourceTypeException 异常
         $this->expectException(UnsupportedResourceTypeException::class);

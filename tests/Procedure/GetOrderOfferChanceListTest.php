@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Procedure;
+namespace Tourze\SpecialOrderBundle\Tests\Procedure;
 
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
-use Tourze\JsonRPC\Core\Tests\AbstractProcedureTestCase;
+use Tourze\PHPUnitJsonRPC\AbstractProcedureTestCase;
 use Tourze\SpecialOrderBundle\Entity\OfferChance;
 use Tourze\SpecialOrderBundle\Procedure\GetOrderOfferChanceList;
 
@@ -22,50 +22,49 @@ final class GetOrderOfferChanceListTest extends AbstractProcedureTestCase
         // 该测试类不需要额外的设置
     }
 
-    public function testFormatItemShouldReturnFormattedArray(): void
-    {
-        $procedure = $this->getMockBuilder(GetOrderOfferChanceList::class)
-            ->disableOriginalConstructor()
-            ->getMock()
-        ;
-
-        $offerChance = $this->createMock(OfferChance::class);
-
-        $offerChance->expects($this->once())
-            ->method('getId')
-            ->willReturn('offer123')
-        ;
-
-        $offerChance->expects($this->once())
-            ->method('getTitle')
-            ->willReturn('Special Offer Title')
-        ;
-
-        $reflectionMethod = new \ReflectionMethod(GetOrderOfferChanceList::class, 'formatItem');
-        $reflectionMethod->setAccessible(true);
-        $result = $reflectionMethod->invoke($procedure, $offerChance);
-
-        $expected = [
-            'id' => 'offer123',
-            'title' => 'Special Offer Title',
-        ];
-
-        $this->assertEquals($expected, $result);
-    }
-
     public function testCanBeInstantiated(): void
     {
-        $procedure = $this->getMockBuilder(GetOrderOfferChanceList::class)
-            ->disableOriginalConstructor()
-            ->getMock()
-        ;
-
+        $procedure = self::getService(GetOrderOfferChanceList::class);
         $this->assertInstanceOf(GetOrderOfferChanceList::class, $procedure);
     }
 
-    public function testExecute(): void
+    public function testExecuteMethodExists(): void
     {
         $procedure = self::getService(GetOrderOfferChanceList::class);
-        $this->assertTrue(method_exists($procedure, 'execute'));
+
+        $reflection = new \ReflectionMethod($procedure, 'execute');
+        $this->assertTrue($reflection->isPublic());
+
+        $parameters = $reflection->getParameters();
+        $this->assertCount(1, $parameters);
+        $this->assertEquals('param', $parameters[0]->getName());
+    }
+
+    public function testFormatItemReturnsCorrectStructure(): void
+    {
+        $procedure = self::getService(GetOrderOfferChanceList::class);
+
+        // 创建真实的 OfferChance 实体
+        $user = $this->createNormalUser('test_user_' . uniqid(), 'password');
+
+        $offerChance = new OfferChance();
+        $offerChance->setTitle('Test Offer Title');
+        $offerChance->setUser($user);
+        $offerChance->setStartTime(new \DateTimeImmutable());
+        $offerChance->setValid(true);
+
+        $this->persistAndFlush($offerChance);
+
+        // 通过反射调用私有方法
+        $reflection = new \ReflectionMethod($procedure, 'formatItem');
+        $reflection->setAccessible(true);
+
+        $result = $reflection->invoke($procedure, $offerChance);
+
+        // 验证返回结构
+        $this->assertIsArray($result);
+        $this->assertArrayHasKey('id', $result);
+        $this->assertArrayHasKey('title', $result);
+        $this->assertEquals('Test Offer Title', $result['title']);
     }
 }

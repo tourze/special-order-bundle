@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace Tourze\SpecialOrderBundle\Tests\Repository;
 
-use Symfony\Component\Security\Core\User\UserInterface;
-use Tourze\UserServiceContracts\UserManagerInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Tourze\PHPUnitSymfonyKernelTest\AbstractRepositoryTestCase;
 use Tourze\ProductCoreBundle\Entity\Sku;
 use Tourze\ProductCoreBundle\Entity\Spu;
 use Tourze\SpecialOrderBundle\Entity\OfferChance;
 use Tourze\SpecialOrderBundle\Entity\OfferSku;
 use Tourze\SpecialOrderBundle\Repository\OfferSkuRepository;
+use Tourze\UserServiceContracts\UserManagerInterface;
 
 /**
  * @internal
@@ -24,6 +24,7 @@ use Tourze\SpecialOrderBundle\Repository\OfferSkuRepository;
 final class OfferSkuRepositoryTest extends AbstractRepositoryTestCase
 {
     private OfferSkuRepository $repository;
+
     private UserManagerInterface $userManager;
 
     protected function onSetUp(): void

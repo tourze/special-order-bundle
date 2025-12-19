@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace EventSubscriber;
+namespace Tourze\SpecialOrderBundle\Tests\EventSubscriber;
 
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
