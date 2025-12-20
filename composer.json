@@ -36,7 +36,7 @@
     "tourze/doctrine-user-bundle": "1.0.*",
     "tourze/easy-admin-menu-bundle": "1.0.*",
     "tourze/json-rpc-core": "2.0.*",
-    "tourze/json-rpc-paginator-bundle": "1.0.*",
+    "tourze/json-rpc-paginator-bundle": "2.0.*",
     "tourze/order-cart-bundle": "1.0.*",
     "tourze/order-core-bundle": "1.0.*",
     "tourze/resource-manage-bundle": "1.0.*",
